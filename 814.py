@@ -6,8 +6,9 @@
 #         self.right = None
 
 class Solution(object):
+
     def getValue(self, root):
-        if root == None:
+        if root is None:
             return 0
         l = 0
         r = 0
@@ -32,7 +33,7 @@ class Solution(object):
         :type root: TreeNodeif
         :rtype: TreeNode
         """
-        if root == None:
+        if root is None:
             return root
 
         if root.left is not None and self.getValue(root.left)==0:
@@ -48,4 +49,4 @@ class Solution(object):
 if __name__ == "__main__":
     s = Solution()
 
-    s.pruneTree(node)
+    #s.pruneTree(node)
