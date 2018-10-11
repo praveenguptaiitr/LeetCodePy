@@ -8,7 +8,7 @@
 class Solution(object):
     def traverse(self, root, l, depth):
         if root is None:
-            return l
+            return
         if len(l)-1 >= depth:
             l.append(root.val)
         self.traverse(root.left,l,depth+1)
