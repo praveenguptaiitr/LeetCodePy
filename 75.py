@@ -4,21 +4,20 @@ class Solution:
         :type nums: List[int]
         :rtype: void Do not return anything, modify nums in-place instead.
         """
-        i = 0;
-        j = len(nums) - 1
+        i = -1;
+        j = len(nums)
         k=0
-        while(k<=j):
+        while(k<j):
             if nums[k]==0:
-                nums[i],nums[k]=nums[k],nums[i]
                 i+=1
+                nums[i],nums[k]=nums[k],nums[i]
                 k+=1
             elif nums[k]==1:
                 k+=1
             elif nums[k]==2:
-                nums[j],nums[k]=nums[k],nums[j]
                 j-=1
-
-        print(nums)
+                nums[j],nums[k]=nums[k],nums[j]
+        #print(nums)
 
 
 if __name__=="__main__":
