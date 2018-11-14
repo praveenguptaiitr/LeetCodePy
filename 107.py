@@ -36,7 +36,7 @@ class Solution(object):
             frontier=next
         ans.reverse()
         return ans
-
+ 
 
 if __name__=='__main__':
   t = TreeNode(3)
