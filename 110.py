@@ -6,6 +6,9 @@
 #         self.right = None
 
 class Solution:
+	def __init__(self):
+		self.ans = True
+
 	def isBalanced(self, root):
 		"""
 		:type root: TreeNode
@@ -14,19 +17,17 @@ class Solution:
 		if root is None:
 			return True
 		else:
-			return self.height(root) != -1
+			self.height(root)
+		return self.ans
 
 	def height(self, root):
 		if root is None:
 			return 0
+
 		l = self.height(root.left)
-		if l == -1:
-			return -1
 		r = self.height(root.right)
-		if r == -1:
-			return -1
 
 		if (abs(l - r) > 1):
-			return -1
-		else:
-			return max(l, r) + 1
+			self.ans= False
+
+		return max(l, r) + 1
