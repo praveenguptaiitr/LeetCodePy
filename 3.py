@@ -18,7 +18,6 @@ class Solution:
                 # do something
                 begin = d[s[end]]+1
                 del d[s[end]]
-
             else:
                 d[s[end]]=end
                 end+=1
