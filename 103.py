@@ -34,11 +34,11 @@ class Solution(object):
                     next.append(e.right)
                     l.append(e.right.val)
             if len(l) > 0:
-                ans.append(l)
                 if len(ans)%2==0:
                     ans.append(l)
                 else:
-                    ans.append(l.reverse())
+                    l.reverse()
+                    ans.append(l)
             frontier = next
             next = []
             l = []
