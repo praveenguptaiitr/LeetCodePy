@@ -38,3 +38,35 @@ class Solution(object):
 
         else: #l2 is not None and l1 is None:
             return l2
+
+
+class Solution(object):
+    def lowestCommonAncestor(self, root, p, q):
+        """
+        :type root: TreeNode
+        :type p: TreeNode
+        :type q: TreeNode
+        :rtype: TreeNode
+        """
+
+        if root is None:
+            return None
+        if root == p:
+            return root
+
+        if root == q:
+            return root
+
+        l1 = self.lowestCommonAncestor(root.left, p, q)
+        l2 = self.lowestCommonAncestor(root.right, p, q)
+
+        if l1 is not None and l2 is not None:
+            return root
+
+        if l1 is not None and l2 is None:
+            return l1
+        if l1 is None and l2 is not None:
+            return l2
+
+        return None
+
