@@ -5,70 +5,90 @@ class TreeNode(object):
         self.left = None
         self.right = None
 
+# class BSTIterator(object):
+#     def __init__(self, root):
+#         """
+#         :type root: TreeNode
+#         """
+#         self.first = False
+#         self.parent = []
+#         self.curr = None
+#         tmp = root
+#         while(tmp.left is not None):
+#             self.parent.append(tmp)
+#             tmp = tmp.left
+#
+#         self.curr = tmp
+#
+#
+#     def hasNext(self):
+#         """
+#         :rtype: bool
+#         """
+#         if self.curr is None:
+#             return False
+#         if self.curr.right is not None:
+#             return True
+#         p = self.parent[:]
+#         k = self.curr
+#         while len(p)>0:
+#             n = p.pop()
+#             if n.left == k:
+#                 return True
+#             k = n
+#         if len(p)==0:
+#             return False
+#
+#     def next(self):
+#         """
+#         :rtype: int
+#         """
+#         if self.curr is not None and self.first is False:
+#             self.first = True
+#             return self.curr.val
+#         if self.curr.right is not None:
+#             self.parent.append(self.curr)
+#             tmp = self.curr.right
+#             self.parent.append(self.curr)
+#             while(tmp.left is not None):
+#                 self.parent.append(tmp)
+#                 tmp = tmp.left
+#             self.curr = tmp
+#             return self.curr.val
+#
+#         p = self.parent[:]
+#         k = self.curr
+#         while len(p)>0:
+#             n = p.pop()
+#             if n.left == k:
+#                 self.curr = n
+#                 self.parent = p[:]
+#                 return self.curr.val
+#             k = n
+#         if len(p)==0:
+#             self.curr = None
+#             return None
+
+
 class BSTIterator(object):
     def __init__(self, root):
-        """
-        :type root: TreeNode
-        """
-        self.first = False
-        self.parent = []
-        self.curr = None
-        tmp = root
-        while(tmp.left is not None):
-            self.parent.append(tmp)
-            tmp = tmp.left
+        self.stack = []
+        while root:
+            self.stack.append(root)
+            root = root.left
 
-        self.curr = tmp
-
-
+    # @return a boolean, whether we have a next smallest number
     def hasNext(self):
-        """
-        :rtype: bool
-        """
-        if self.curr is None:
-            return False
-        if self.curr.right is not None:
-            return True
-        p = self.parent[:]
-        k = self.curr
-        while len(p)>0:
-            n = p.pop()
-            if n.left == k:
-                return True
-            k = n
-        if len(p)==0:
-            return False
+        return len(self.stack) > 0
 
+    # @return an integer, the next smallest number
     def next(self):
-        """
-        :rtype: int
-        """
-        if self.curr is not None and self.first is False:
-            self.first = True
-            return self.curr.val
-        if self.curr.right is not None:
-            self.parent.append(self.curr)
-            tmp = self.curr.right
-            self.parent.append(self.curr)
-            while(tmp.left is not None):
-                self.parent.append(tmp)
-                tmp = tmp.left
-            self.curr = tmp
-            return self.curr.val
-
-        p = self.parent[:]
-        k = self.curr
-        while len(p)>0:
-            n = p.pop()
-            if n.left == k:
-                self.curr = n
-                self.parent = p[:]
-                return self.curr.val
-            k = n
-        if len(p)==0:
-            self.curr = None
-            return None
-
+        node = self.stack.pop()
+        x = node.right
+        while x:
+            self.stack.append(x)
+            x = x.left
+        return node.val
 
 # Your BSTIterator will be called like this:
 t = TreeNode(10)
