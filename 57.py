@@ -1,11 +1,14 @@
 class Solution(object):
-    def merge(self, intervals):
+    def insert(self, intervals, newInterval):
         """
         :type intervals: List[List[int]]
+        :type newInterval: List[int]
         :rtype: List[List[int]]
         """
 
+        intervals.append(newInterval)
         intervals.sort(key = lambda x : x[0])
+
         x = 0
         while x < len(intervals)-1:
             i,j = intervals[x+1][0],intervals[x+1][1]
@@ -20,10 +23,7 @@ class Solution(object):
         return intervals
 
 
-
 if __name__ == "__main__":
     s = Solution()
-    print(s.merge([[1,3],[2,6],[8,10],[15,18]]))
-    print(s.merge([[1, 4],[4,5]]))
-    print(s.merge([[1, 4], [1, 4]]))
-    print(s.merge([[5,5],[1,3],[3,5],[4,6],[1,1],[3,3],[5,6],[3,3],[2,4],[0,0]]))
+    print(s.insert([[1,3],[6,9]], [2,5]))
+    print(s.insert([[1,2],[3,5],[6,7],[8,10],[12,16]], [4,8]))
