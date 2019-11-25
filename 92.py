@@ -4,11 +4,8 @@ class ListNode(object):
         self.val = x
         self.next = None
 
+
 class Solution(object):
-    def printNone(self, head):
-        while(head is not None):
-            print(head.val)
-            head=head.next
 
     def reverseBetween(self, head, m, n):
         """
@@ -17,90 +14,30 @@ class Solution(object):
         :type n: int
         :rtype: ListNode
         """
-
         if head is None:
             return None
 
-        if head.next is None:
+        if m == n:
             return head
 
-        if m==n:
-            return head
-
-        if head.next.next is None and m==1 and n==2:
-            head.next.next = head
-            t = head.next
-            head.next = None
-            return t
-
-        i = 1
+        dummy_head = ListNode(float("-inf"))
+        dummy_head.next = head
         curr = head
-        prev = None
-        #next = curr.next
-        while(i<m):
-            i+=1
+        prev = dummy_head
+        count = 1
+        while count < m:
             prev = curr
             curr = curr.next
+            count += 1
 
-        p1 = head if prev is None else prev
-        #inc by 1
-        prev = curr
-        curr = curr.next
-        next = curr.next
+        temp1 = None
+        for _ in range(n - m):
+            temp1 = curr.next
+            curr.next = temp1.next
+            temp1.next = prev.next
+            prev.next = temp1
 
-
-        while(i<n and curr and curr.next):
-            curr.next=prev
-            prev=curr
-            curr=next
-            next=next.next
-            i+=1
-
-        if curr.next is None:
-            #if m==1 and i == n:
-
-            if m==1 and i != n:
-                curr.next = prev
-                #p1.next = curr
-                head.next = None
-                head = curr
-
-                #p1.next = prev
-                print("-------------------")
-                self.printNone(head)
-                print("-------------------")
-                return head
-
-
-            elif i < n :
-                curr.next = prev
-                p1.next.next=None
-                p1.next = curr
-                #prev.next = None
-                #p1.next = prev
-                print("-------------------")
-                self.printNone(head)
-                print("-------------------")
-                return head
-
-
-
-        if m != 1:
-            p1.next.next = curr
-            p1.next = prev
-            print("-------------------")
-            self.printNone(head)
-            print("-------------------")
-            return head
-
-        else:
-            head.next = curr
-            head = prev
-            print("+++++++++++")
-            self.printNone(head)
-            print("+++++++++++")
-            return head
-
+        return dummy_head.next
 
 if __name__=="__main__":
     s = Solution()
