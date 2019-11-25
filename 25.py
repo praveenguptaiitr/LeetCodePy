@@ -4,76 +4,37 @@ class ListNode(object):
         self.val = x
         self.next = None
 
+
 class Solution(object):
-    def printl(self, head):
-        print("------------")
-        tmp = head
-        while(tmp is not None):
-            print(tmp.val)
-            tmp=tmp.next
-        print("=============")
     def reverseKGroup(self, head, k):
         """
         :type head: ListNode
         :type k: int
         :rtype: ListNode
         """
-        tmp = head
-        l = 0
-        while tmp is not None:
-            l +=1
-            tmp=tmp.next
+        curr = head
+        count = 0
+        while curr is not None:
+            count += 1
+            curr = curr.next
+        iters = count // k
+        dummy = ListNode(float("-inf"))
+        dummy.next = head
+        curr = head
+        prev = dummy
 
-        if head is None or head.next is None or k == 0 or k == 1:
-            return head
+        for _ in range(iters):
+            temp1 = None
+            for _ in range(k - 1):
+                temp1 = curr.next
+                curr.next = temp1.next
+                temp1.next = prev.next
+                prev.next = temp1
 
-        if l == 2 and k == 2:
-            head.next.next = head
-            t = head.next
-            head.next = None
-            return t
+            prev = curr
+            curr = curr.next
 
-        pHead = None
-        prev = None
-        mid = head
-        nxt = head.next
-
-        iter = 1
-        total = l//k
-        while iter <= (l//k):
-            i=0
-            while (i < k and mid is not None and nxt is not None):
-                mid.next = prev
-                prev = mid
-                mid = nxt
-                nxt = nxt.next
-                i+=1
-
-            if pHead is None:
-                if iter * k != l:
-                    pHead = head
-                    head = prev
-                    pHead.next = mid
-                else:
-                    mid.next = prev
-                    head = mid
-                    return head
-            else:
-                if iter * k != l:
-                    t = pHead.next
-                    pHead.next = prev
-                    t.next = mid
-                    pHead=t
-                    prev = pHead
-                else:
-                    pHead.next.next = None
-                    pHead.next = mid
-                    mid.next = prev
-            iter+=1
-
-        #pHead.next = prev
-
-        return head
+        return dummy.next
 
 if __name__ =="__main__":
     s = Solution()
